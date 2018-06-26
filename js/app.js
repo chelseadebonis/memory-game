@@ -1,8 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
-//global scope
 const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+
+//global scope
 const cardGrid = document.querySelector('.deck');
 let openCards = [];
 let matchedCards = [];
@@ -11,6 +12,8 @@ let moves = 0;
 let clockOff = true;
 let time = 0;
 let restart = document.querySelector('.restart');
+const modal = document.querySelector('.modal');
+const closeButton = document.querySelector('.close-button');
 
 
 //shuffle cards
@@ -43,19 +46,19 @@ for (let i = 0; i < icons.length; i++) {
     const firstCard = this;
     const lastCard = openCards[0];
     gameScore();
-    //existing opened card
+    startClock();
+
+//open card
     if (openCards.length === 1) {
 
       card.classList.add("open", "show");
       openCards.push(this);
-        startClock();
-          addMove();
 
-    //compare the open cards
+    lastCard.addEventListener('click', addMove());
 
-        if (firstCard.innerHTML === lastCard.innerHTML) {
+//matched cards
+      if (firstCard.innerHTML === lastCard.innerHTML) {
 
-          //matched cards
           firstCard.classList.add("match");
           lastCard.classList.add("match");
 
@@ -68,7 +71,7 @@ for (let i = 0; i < icons.length; i++) {
           gameOver();
 
 
-          } else {
+      } else {
 
             openCards = [];
             //wait 1000ms then remove class
@@ -86,7 +89,6 @@ for (let i = 0; i < icons.length; i++) {
 
 
 //timer functions
-
 function startClock() {
   clockId = setInterval(() => {
     time++;
@@ -112,7 +114,8 @@ function displayTime() {
 function gameOver() {
   if(matchedCards.length === icons.length) {
     stopClock();
-    alert("Game Over!");
+    toggleModal();
+    closeModal();
   }
 
 }
@@ -204,6 +207,16 @@ function resetStars() {
   for (star of stars) {
     star.style.display = 'inline';
   }
+}
+
+
+//modal functions
+function toggleModal() {
+  modal.classList.toggle('show-modal');
+}
+
+function closeModal() {
+  closeButton.addEventListener('click', toggleModal);
 }
 
 /*   - shuffle the list of cards using the provided "shuffle" method below

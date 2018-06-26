@@ -46,7 +46,10 @@ for (let i = 0; i < icons.length; i++) {
     const firstCard = this;
     const lastCard = openCards[0];
     gameScore();
-    startClock();
+    if (clockOff) {
+            startClock();
+            clockOff = false;
+        }
 
 //open card
     if (openCards.length === 1) {
@@ -73,8 +76,10 @@ for (let i = 0; i < icons.length; i++) {
 
       } else {
 
+  //wait 1000ms then remove class, flip cards back over because they do not match
+
             openCards = [];
-            //wait 1000ms then remove class
+
             setTimeout(function() {
               firstCard.classList.remove("open", "show");
               lastCard.classList.remove("open", "show");
@@ -89,6 +94,7 @@ for (let i = 0; i < icons.length; i++) {
 
 
 //timer functions
+
 function startClock() {
   clockId = setInterval(() => {
     time++;
@@ -117,7 +123,6 @@ function gameOver() {
     toggleModal();
     closeModal();
   }
-
 }
 
 
@@ -213,10 +218,22 @@ function resetStars() {
 //modal functions
 function toggleModal() {
   modal.classList.toggle('show-modal');
+
 }
 
 function closeModal() {
   closeButton.addEventListener('click', toggleModal);
+}
+
+function modalStats() {
+  const clockStat = document.querySelector('.clock').innerHTML;
+  const moveStat = document.querySelector('.moves');
+  const starsStat = document.querySelector('.stars');
+  const stars = getStars();
+
+  clockStat.innerHTML = `Time = ${clockTime}`;
+  movesStat.innerHTML = `Moves = ${moves}`;
+  starsStat.innerHTML = `Stars = ${stars}`;
 }
 
 /*   - shuffle the list of cards using the provided "shuffle" method below

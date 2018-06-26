@@ -12,6 +12,7 @@ let moves = 0;
 let clockOff = true;
 let time = 0;
 let restart = document.querySelector('.restart');
+let replay = document.querySelector('.modal_button_replay');
 const modal = document.querySelector('.modal');
 const closeButton = document.querySelector('.close-button');
 
@@ -62,8 +63,8 @@ for (let i = 0; i < icons.length; i++) {
 //matched cards
       if (firstCard.innerHTML === lastCard.innerHTML) {
 
-          firstCard.classList.add("match");
-          lastCard.classList.add("match");
+          firstCard.classList.add('match');
+          lastCard.classList.add('match');
 
 
           matchedCards.push(firstCard, lastCard);
@@ -120,6 +121,7 @@ function displayTime() {
 function gameOver() {
   if(matchedCards.length === icons.length) {
     stopClock();
+    modalStats();
     toggleModal();
     closeModal();
   }
@@ -187,6 +189,11 @@ restart.addEventListener('click', function() {
   resetGame();
 });
 
+replay.addEventListener('click', function() {
+  location.reload();
+  resetGame();
+});
+
 function resetGame() {
   resetTime();
   resetMoves();
@@ -226,13 +233,14 @@ function closeModal() {
 }
 
 function modalStats() {
-  const clockStat = document.querySelector('.clock').innerHTML;
-  const moveStat = document.querySelector('.moves');
-  const starsStat = document.querySelector('.stars');
+  const timeStat = document.querySelector('.time_stats');
+  const clockTime = document.querySelector('.clock').innerHTML;
+  const moveStat = document.querySelector('.move_stats');
+  const starsStat = document.querySelector('.star_stats');
   const stars = getStars();
 
-  clockStat.innerHTML = `Time = ${clockTime}`;
-  movesStat.innerHTML = `Moves = ${moves}`;
+  timeStat.innerHTML = `Time = ${clockTime}`;
+  moveStat.innerHTML = `Moves = ${moves}`;
   starsStat.innerHTML = `Stars = ${stars}`;
 }
 

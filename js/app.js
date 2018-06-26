@@ -55,7 +55,7 @@ for (let i = 0; i < icons.length; i++) {
 //open card
     if (openCards.length === 1) {
 
-      card.classList.add("open", "show");
+      card.classList.add('open', 'show');
       openCards.push(this);
 
     lastCard.addEventListener('click', addMove());
@@ -82,13 +82,13 @@ for (let i = 0; i < icons.length; i++) {
             openCards = [];
 
             setTimeout(function() {
-              firstCard.classList.remove("open", "show");
-              lastCard.classList.remove("open", "show");
+              firstCard.classList.remove('open', 'show');
+              lastCard.classList.remove('open', 'show');
             }, 1000);
         }
     } else
 
-        card.classList.add("open", "show");
+        card.classList.add('open', 'show');
         openCards.push(this);
   });
 }
@@ -152,7 +152,7 @@ function addMove() {
 }
 
 function gameScore() {
-  if (moves === 16 || moves === 24 || moves === 30) {
+  if (moves === 16 || moves === 32 || moves === 40) {
     hideStar();
   }
 }

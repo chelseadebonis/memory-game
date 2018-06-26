@@ -10,6 +10,7 @@ let clockId;
 let moves = 0;
 let clockOff = true;
 let time = 0;
+let restart = document.querySelector('.restart');
 
 
 //shuffle cards
@@ -48,10 +49,8 @@ for (let i = 0; i < icons.length; i++) {
       card.classList.add("open", "show");
       openCards.push(this);
         startClock();
+          addMove();
 
-      if (openCards.length === 2) {
-        addMove();
-    }
     //compare the open cards
 
         if (firstCard.innerHTML === lastCard.innerHTML) {
@@ -143,7 +142,7 @@ function addMove() {
 }
 
 function gameScore() {
-  if (moves === 16 || moves === 24) {
+  if (moves === 16 || moves === 24 || moves === 30) {
     hideStar();
   }
 }
@@ -165,10 +164,21 @@ function replayGame() {
   //toggle modal
 }
 
-document.getElementsByTagName('.restart').addEventListener("click", resetGame());
 
+
+/*$('.restart').click(function () {
+    shuffle(icons);
+    $('.card').removeClass('open', 'show', 'match');
+    $('.deck').append(cardsArray);
+  }*/
 
 //reset game button
+
+restart.addEventListener('click', function() {
+  location.reload();
+  resetGame();
+});
+
 function resetGame() {
   resetTime();
   resetMoves();
@@ -185,7 +195,7 @@ function resetTime() {
 
 function resetMoves() {
   moves = 0;
-  document.querySelector('.moves').innerHTML = moves;
+  moves = document.querySelector('.moves').innerHTML;
 }
 
 function resetStars() {

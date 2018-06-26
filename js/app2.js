@@ -2,7 +2,7 @@
  * Create a list that holds all of your cards
  */
 
- const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
+const icons = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb"];
 
 
 
@@ -20,20 +20,20 @@ for (let i = 0; i < icons.length; i++) {
   card.classList.add('card');
   card.innerHTML = `<i class='${icons[i]}'></i>"`;
   cardGrid.appendChild(card);
-
+}
 //click event for cards
-  card.addEventListener('click', function() {
+function click(card) {
+  card.addEventListener("click", function() {
     const firstCard = this;
     const lastCard = openCards[0];
 
     //existing opened card
     if (openCards.length === 1) {
 
-      card.classList.add("open", "show");
+      card.classList.add("open", "show", "none");
       openCards.push(this);
 
     //compare open cards
-
         if (firstCard.innerHTML === lastCard.innerHTML) {
 
           //matched cards
@@ -53,19 +53,20 @@ for (let i = 0; i < icons.length; i++) {
             openCards = [];
             //wait 1000ms then remove class
             setTimeout(function() {
-              firstCard.classList.remove("open", "show");
-              lastCard.classList.remove("open", "show");
+              firstCard.classList.remove("open", "show", "none");
+              lastCard.classList.remove("open", "show", "none");
             }, 1000);
         }
 
+
     } else   //do not have any open cards
 
-        card.classList.add("open", "show");
+        card.classList.add("open", "show", "none");
         openCards.push(this);
 
 
-  });
-
+      });
+    }
 
 }
 
@@ -74,7 +75,33 @@ function isOver() {
     alert("Game Over!");
   }
 
+
 }
+
+
+
+//add Moves
+const movesContainer = document.querySelector(".moves");
+let moves = 0;
+function addMove() {
+  moves++;
+  movesContainer.innerHTML = moves;
+}
+
+
+
+
+//restart Game
+
+const restartButton = document.querySelector(".restart");
+restartButton.addEventListener("click", function() {
+  //delete all cards
+  card.container.innerHTML = "";
+  //all to create new cards
+  init();
+  //reset any related valuables
+  matchedCards = [];
+});
 
 /*   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
